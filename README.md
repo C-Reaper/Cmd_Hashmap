@@ -1,193 +1,88 @@
-# Cmd_Hashmap
+## Project README
 
+### Overview
+The project is a simple implementation of a hash map in C that supports various operating systems and environments. It includes support for Linux, Windows (using Wine), web assembly, and cross-compilation for Windows on Linux.
 
-## Project Overview
+### Features
+- Hash map data structure
+- Insertion (`Hashmap_Add`)
+- Removal (`Hashmap_Remove`)
+- Lookup (`Hashmap_Find`)
+- Printing (`Hashmap_Print`)
+- Support for different operating systems and environments
 
-This project implements specialized functionality related to hashmap.
+### Project Structure
+The project directory contains the following files:
 
-## Core Components
-
-### Main Functionality
-- Implements core algorithms for hashmap
-- Efficient data structures
-- Optimized performance
-- Clean code organization
-
-### Technical Features
-- C/C++ implementation
-- Dynamic memory management
-- Platform-independent design
-- Real-time capable
-
-### Architecture
-- Module separation
-- Clear interface design
-- Proper abstraction layers
-- Extensible design
-
-## Use Cases
-- Production systems
-- Educational purposes
-- Research applications
-- Performance-critical operations
-
-## Performance Characteristics
-- Optimized algorithms
-- Efficient memory usage
-- Scalable architecture
-- Minimal overhead
-
-## Implementation Quality
-- Well-organized code
-- Meaningful naming
-- Proper error handling
-- Memory management
-
-## Build and Deployment
-- Standard C/C++ compilation
-- Makefile-based building
-- Cross-platform support
-- Easy integration
-
-
-## Building the Project
+```
+# Project Root/
+├── build/             # Compiled .exe, .so, .dll files produced by Main.c
+├── libs/              # Contains library source files
+├── src/               # Source code directory
+│   ├── Main.c         # Entry point
+│   └── *.h            # Header files for various utilities and data structures
+├── Makefile.linux     # Linux build configuration
+├── Makefile.windows   # Windows build configuration
+├── Makefile.wine      # Wine build configuration for cross-compiling to Windows on Linux
+└── Makefile.web       # Web assembly build configuration using Emscripten or wasmtime
+```
 
 ### Prerequisites
-- C/C++ Compiler (GCC, Clang, or MSVC)
+- C/C++ Compiler and Debugger (GCC, Clang)
 - Make utility
 - Standard development tools
+- Libraries needed in specific projects (none explicitly listed in the provided files)
 
-### Build Steps
+## Build & Run
 
-1. Navigate to project directory:
+### Building on Linux
+To build the project on Linux:
 ```bash
-cd Cmd_Hashmap
+cd /path/to/project
+make -f Makefile.linux all
 ```
+This will compile the source code and generate an executable named `Main` in the `build/` directory.
 
-2. Build the project:
+### Building on Windows (using Wine)
+To build the project on Linux for Windows using Wine:
 ```bash
-make -f Makefile.(os) all
+cd /path/to/project
+make -f Makefile.wine all
 ```
+This will cross-compile the source code and generate a Windows executable named `Main.exe` in the `build/` directory.
 
-3. For clean rebuild:
+### Building for WebAssembly (using Emscripten)
+To build the project for web assembly:
 ```bash
-make -f Makefile.(os) clean
-make -f Makefile.(os) all
+cd /path/to/project
+make -f Makefile.web all
 ```
+This will compile the source code using Emscripten and generate a WebAssembly file named `Main.wasm`.
 
-4. If there are ./bin and ./libs directories, build libs with:
+### Running on Linux
+To run the executable on Linux:
 ```bash
-make -f Makefile.(os) cleanlib
-make -f Makefile.(os) lib
+make -f Makefile.linux exe
 ```
 
-### Build Options
+### Debugging on Linux
+To debug the executable on Linux:
 ```bash
-make -f Makefile.(os) all         # build output
-make -f Makefile.(os) do        # build + exe output
-make -f Makefile.(os) clean   # Remove build artifacts
+make -f Makefile.linux debug
 ```
+This will start GDB to debug the `Main` executable.
 
-## Running the Project
-
-Execute the compiled binary:
-
+### Clean Build
+To clean and rebuild the project:
 ```bash
-./build/Main(.exe)
+make -f Makefile.linux clean
+make -f Makefile.linux all
 ```
 
-Or using make:
+### Full Process (Build + Execute)
+To build and execute the project on Linux:
 ```bash
-make -f Makefile.(os) exe
+make -f Makefile.linux do
 ```
 
-## Project Organization
-
-```
-Cmd_Hashmap/
-├── src/
-│   ├── Main.c          # Entry point
-│   └── *.c             # Implementation files
-├── Makefile            # Build configuration
-└── README.md           # This file
-```
-
-## Technical Details
-
-### Language: C/C++
-- Performance-oriented
-- Direct hardware access where needed
-- Memory efficient
-- Widely portable
-
-### Key Technologies
-- Standard C library
-- System-specific libraries as needed
-- Algorithm optimization
-- Efficient data structures
-
-### Code Quality
-- Clean, readable implementation
-- Proper error handling
-- Resource management
-- Well-documented algorithms
-
-## Development Notes
-
-### Architecture Decisions
-- Modular design for reusability
-- Efficient algorithms for performance
-- Clear separation of concerns
-- Extensible structure
-
-### Performance Optimizations
-- Algorithm efficiency
-- Memory layout optimization
-- Cache-conscious programming
-- Minimal overhead
-
-### Portability
-- Cross-platform compatible
-- Platform-specific optimizations where possible
-- Standard library usage
-- No external dependencies (where feasible)
-
-## Troubleshooting
-
-### Build Issues
-- Ensure compiler is installed
-- Check file paths and permissions
-- Verify Make installation
-- Review compiler error messages
-
-### Runtime Issues
-- Check input data validity
-- Verify file accessibility
-- Ensure sufficient memory
-- Review output format
-
-### Performance Issues
-- Check compiler optimization flags
-- Profile hot code paths
-- Review algorithm complexity
-- Consider input size
-
-## Future Improvements
-
-Potential enhancements:
-- Additional optimization opportunities
-- Extended functionality
-- Platform-specific optimizations
-- Performance profiling
-
-## References
-
-For technical background:
-- Algorithm textbooks
-- Computer science references
-- Language documentation
-- Online educational resources
-
----
-
-*Project implementing practical algorithms and data structures in C/C++*
+This README provides a comprehensive overview of the project, its features, and how to build and run it across different environments.
