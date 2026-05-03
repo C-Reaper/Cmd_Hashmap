@@ -10,12 +10,16 @@
 #error "Platform not supported!"
 #endif
 
-Hashmap_Hash CStr_Hash(int Max,void* Key){
-    char* cstr = *(char**)Key;
-    //int len = CStr_Size(cstr);
-    Hashmap_Hash h = CStr_SimpleHash(cstr);
-    return h % Max;
+Hashmap_Hash CStr_Hash_Simple(int Max,unsigned int KEY_SIZE,void* Hash){
+    char* const cstr = *(char**)Hash;
+    return CStr_SimpleHash(cstr) % Max;
 }
+char CStr_Hash_CmpKeys(unsigned int KEY1_SIZE,void* Key1,unsigned int KEY2_SIZE,void* Key2){
+    char* const cstr1 = *(char**)Key1;
+    char* const cstr2 = *(char**)Key2;
+    return CStr_Cmp(cstr1,cstr2);
+}
+
 void Pair_PrintCStr(Pair* p){
     if(p && p->Data)
         printf("(%s,%d)",*((char**)Pair_First(p)),*((int*)Pair_Second(p)));
@@ -27,8 +31,8 @@ void Pair_FreeKey(Pair* p){
 int main(){
     Hashmap hmap = Hashmap_Make(
         10,
-        CStr_Hash,
-        (char(*)(void*,void*))CStr_Cmp,
+        CStr_Hash_Simple,
+        CStr_Hash_CmpKeys,
         Pair_FreeKey,
         Pair_PrintCStr
     );
@@ -41,10 +45,10 @@ int main(){
 
     Hashmap_Print(&hmap);
     
-    Hashmap_Remove(&hmap,(char*[]){ "Fourth" });
-    Hashmap_Remove(&hmap,(char*[]){ "Fivth" });
+    Hashmap_Remove(&hmap,sizeof(char*),(char*[]){ "Fourth" });
+    Hashmap_Remove(&hmap,sizeof(char*),(char*[]){ "Fivth" });
 
-    void* Found = Hashmap_Find(&hmap,(char*[]){ "Third" });
+    void* Found = Hashmap_Find(&hmap,sizeof(char*),(char*[]){ "Third" });
     if(Found)   printf("Found: %d\n",*(int*)Found);
     else        printf("Not Found!\n");
     
